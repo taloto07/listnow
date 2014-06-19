@@ -7,6 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+
 public class DispatchServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +36,13 @@ public class DispatchServlet extends BaseServlet {
 		// Get contextPath for any external files such as css, js path
 		String contextPath = getContextPath(); 
 		
-		out.print("context path: " + contextPath);
+		STGroup templates = this.getSTGroup();
+		
+		ST page = templates.getInstanceOf("template");
+		page.add("contextPath", contextPath);
+		
+		out.print(page.render());
+		out.flush();
 	}
 
 }
