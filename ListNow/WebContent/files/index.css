@@ -1,0 +1,91 @@
+body {
+	background-image: url("background.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.float-header {
+	background-color: #158cba;
+	color: white;
+	padding: 20px;
+	top: 0px;
+	width: 100%;
+	opacity: .7;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 200;
+	position: fixed;
+	z-index: 1;
+}
+
+.index-search-wrapper {
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid gray;
+	padding: 20px;
+	margin-top: 22%;
+	opacity: .85;
+}
+
+#index-search-bar {
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.goal {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	margin-top: 20%;
+	background-color: white;
+}
+
+.goal h2 {
+	font-size: 40px;
+}
+
+.goal p {
+	font-size: 20px;
+}
+
+.thumbnail{
+	margin-top: 30px;
+	padding: 0px;
+}
+
+.thumbnail h3 {
+	font-size: 18px;
+}
+
+.momo {
+	background-image: url("bg-banner.gif");
+	padding: 250px 0;
+}
+
+.momo h2 {
+	color: white;
+	font-size: 50px;
+}
+
+.momo p {
+	color: white;
+	font-size: 20px;
+}
+
+.subscribe {
+	background-color: #f8f8f4;
+	padding: 100px 0;
+}
+
+.subscribe h2 {
+	font-size: 50px;
+}
+
+.subscribe p {
+	font-size: 20px;
+	padding: 20px 0;
+}
+
+
+

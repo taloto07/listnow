@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,5 +46,21 @@ public class V1 {
 		allCity.put("cities", cities);
 		
 		return Response.status(200).entity(gson.toJson(allCity)).build();
+	}
+	
+	@Path("/getcity/{cityname}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCityByName(@PathParam("cityname") int zipecode){
+		City city = service.getCityByZipcode(zipecode);
+		
+		if (city == null){
+			return Response.status(406).build();
+		}
+		
+		Map<String, City> cityMap = new HashMap<String, City>();
+		cityMap.put("City", city);
+		
+		return Response.status(200).entity(new Gson().toJson(cityMap)).build();
 	}
 }

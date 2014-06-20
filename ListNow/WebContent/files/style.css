@@ -1,0 +1,107 @@
+
+body {
+	background-color: gray;
+}
+
+.container {
+	width: 970px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn {
+	opacity: .8;
+}
+
+.input {
+	margin-top: 20px;
+}
+
+.signup-wrapper, .index-search-wrapper {
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid gray;
+	padding: 20px;
+	margin-top: 30%;
+}
+
+.index-search-wrapper {
+	margin-top: 25%;
+}
+
+#header {
+	background-color: #f8f8f8;
+}
+
+#search-main {
+	width: 600px;
+	margin-left: 20px;
+	margin-top: 7px;
+}
+
+.login-wrapper {
+	background-color: white;
+	padding: 20px;
+	margin-top: 30%;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+
+.settings-wrapper {
+	background-color: white;
+	height: 200px;
+}
+
+.results {
+	margin: 40px 0px;
+	text-align: left;
+}
+
+.result {
+	margin-top: 20px;
+	padding: 20px 0px;
+	height: 278px;
+	background-color: white;
+}
+
+.result h2 {
+	margin-top: 20px;
+}
+
+.result-title {
+	font-size: 20px;
+	border-bottom: 1px solid gray;
+}
+
+.description {
+	padding: 0px 20px;
+	height: 80px;
+}
+
+.tags {
+	padding-top: 20px;
+}
+
+.thumbnail {
+	position: relative;
+}
+
+.badge {
+	position: absolute;
+	border-radius: 0px;
+	bottom: 0;
+	opacity: .8;
+	padding: 10px;
+	background-color: gray;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+#footer {
+	background-color: #2f2f2f;
+	color: white;
+	padding: 20px;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+}

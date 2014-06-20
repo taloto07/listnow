@@ -1,0 +1,75 @@
+#search {
+	width: 655px;
+	margin-right: 30px;
+}
+
+body {
+	 background-color: red;
+}
+
+.container {
+	width: 960px;
+}
+
+.row {
+	padding-top: 220px;
+}
+
+h2 {
+	font-size: 20px;
+	margin-top: 0px;
+	font-weight: 200;
+}
+
+.username {
+	font-weight: 500;
+	font-size: 30px
+}
+
+.follow {
+	width: 150px;
+	letter-spacing: 1px
+}
+
+#story {
+	background-color: white;
+	padding-right: 0px;
+}
+
+#avatar {
+	margin-bottom: 5px;
+}
+
+.basic-info{
+	padding-top: 170px;
+}
+
+.following-info {
+	padding-top: 182px;
+	float: rigth;
+}
+
+.intro {
+	padding-top: 300px;
+	padding: 15px;
+	padding-bottom: 5px;
+	background-color: white;
+}
+
+.jumbotron {
+	padding-right: 0px;
+}
+
+.cover {
+	position: absolute;
+	
+}
+
+.popup{
+	border: gray solid 1px;
+	padding: 10px;
+	border-radius: 5px;
+	width: 175px;
+	background-color: white;
+	box-shadow: 2px 2px 2px #888;
+}
