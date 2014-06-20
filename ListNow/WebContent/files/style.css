@@ -34,7 +34,7 @@ body {
 }
 
 #search-main {
-	width: 600px;
+	width: 520px;
 	margin-left: 20px;
 	margin-top: 7px;
 }
@@ -102,6 +102,7 @@ body {
 	color: white;
 	padding: 20px;
 	bottom: 0px;
+	position: absolute;
 	width: 100%;
 	text-align: center;
 }

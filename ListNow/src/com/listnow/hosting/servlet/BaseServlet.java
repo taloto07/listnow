@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 import com.google.inject.Inject;
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor;
+import com.listnow.hosting.dao.User;
 import com.listnow.hosting.service.ListnowService;
 
 public class BaseServlet extends HttpServlet {
@@ -48,4 +50,12 @@ public class BaseServlet extends HttpServlet {
 		return compressor.compress(content);
 	}
 
+	protected void checkUserLogin(HttpServletRequest request, ST page){
+		String user = request.getRemoteUser();
+		
+		if (user != null){
+			User u = service.getUserByEmail(user);
+			page.add("user", u.getFirstName() + " " + u.getLastName());
+		}
+	}
 }

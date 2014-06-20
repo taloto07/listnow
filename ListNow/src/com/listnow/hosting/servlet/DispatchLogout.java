@@ -3,6 +3,7 @@ package com.listnow.hosting.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
-public class DispatchServlet extends BaseServlet {
+import com.listnow.hosting.dao.User;
+
+public class DispatchLogout extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
-	public DispatchServlet() {
+	public DispatchLogout() {
 		super();
 	}
 
@@ -34,20 +37,36 @@ public class DispatchServlet extends BaseServlet {
 
 		// set response type to text/html
 		response.setContentType("text/html");
-
 		// Get PrintWriter to write back to client
 		PrintWriter out = response.getWriter();
 
 		// Get contextPath for any external files such as css, js path
 		String contextPath = getContextPath();
-
-		STGroup templates = this.getSTGroup();
-
-		ST page = templates.getInstanceOf("home");
-		page.add("contextPath", contextPath);
-
-		out.print(page.render());
-		out.flush();
+		
+		String email = request.getRemoteUser();
+		if (email == null) {
+			response.sendRedirect(contextPath);
+		}else{
+	
+			STGroup templates = this.getSTGroup();
+	
+			ST page = templates.getInstanceOf("template");
+			ST body = templates.getInstanceOf("logout");
+			
+			request.logout();
+				
+			User user = service.getUserByEmail(email);
+			
+			body.add("message", "See you soon " + user.getFirstName() + " " + user.getLastName());
+			
+			page.add("contextPath", contextPath);
+			page.add("title", "Search");
+			this.checkUserLogin(request, page);
+			page.add("body", body.render());
+	
+			out.print(page.render());
+			out.flush();
+		}
 	}
 
 }

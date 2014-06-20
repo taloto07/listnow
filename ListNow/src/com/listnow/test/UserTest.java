@@ -19,57 +19,69 @@ import com.listnow.hosting.service.ListnowService;
 public class UserTest {
 	static Injector injector;
 	static ListnowService service;
-	
+
 	@BeforeClass
-	public static void init(){
+	public static void init() {
 		injector = Guice.createInjector(new MainModule());
 		injector.getInstance(ListnowPersistenceInitializer.class);
 		service = injector.getInstance(ListnowService.class);
 	}
-	
+
 	@Test
-	public void getAllUsers(){
+	public void getAllUsers() {
 		List<User> users;
 		users = service.getAllUser();
-		
-		assertEquals(2, users.size());
+
+		assertEquals(1, users.size());
 	}
-	
+
 	@Test
-	public void getUser(){
+	public void getUser() {
 		User user = service.getUserByEmail("taloto07@gmail.com");
 		List<Group> groups = user.getGroups();
-		
+
 		assertNotEquals(0, groups.size());
 		assertNotNull(user);
 	}
-	
+
 	@Test
-	public void addUser(){
+	public void addUser() {
 		User u = new User();
 		u.setEmail("chamnaplim18@yahoo.com");
 		u.setFirstName("cham");
 		u.setLastName("lim");
 		u.setPassword("test");
-		
+
 		List<Group> lg = service.getAllGroup();
 		u.setGroups(lg);
-		
+
 		// add user to database
 		service.addUser(u);
-		
+
 		User fromDatabase = service.getUserByEmail("chamnaplim18@yahoo.com");
-		
+
 		assertEquals(u, fromDatabase);
-		
-		
-	}
-	
-	@AfterClass
-	public static void tearDownClass(){
+
 		// remove tested added user
 		service.removeUserByEmail("chamnaplim18@yahoo.com");
+	}
+
+	@Test
+	public void addExistedUser() {
+		User u = new User();
+		u.setEmail("taloto07@gmail.com");
+		u.setFirstName("cham");
+		u.setLastName("lim");
+		u.setPassword("test");
 		
+		boolean flag = service.addUser(u);
+		
+		assertFalse(flag);
+	}
+
+	@AfterClass
+	public static void tearDownClass() {
+
 		injector = null;
 		service = null;
 	}

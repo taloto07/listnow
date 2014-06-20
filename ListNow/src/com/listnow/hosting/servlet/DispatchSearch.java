@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
-public class DispatchServlet extends BaseServlet {
+public class DispatchSearch extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
-	public DispatchServlet() {
+	public DispatchSearch() {
 		super();
 	}
 
@@ -34,7 +34,6 @@ public class DispatchServlet extends BaseServlet {
 
 		// set response type to text/html
 		response.setContentType("text/html");
-
 		// Get PrintWriter to write back to client
 		PrintWriter out = response.getWriter();
 
@@ -43,8 +42,15 @@ public class DispatchServlet extends BaseServlet {
 
 		STGroup templates = this.getSTGroup();
 
-		ST page = templates.getInstanceOf("home");
+		ST page = templates.getInstanceOf("template");
+		ST body = templates.getInstanceOf("search");
+
+		body.add("contextPath", contextPath);
+		
 		page.add("contextPath", contextPath);
+		page.add("title", "Search");
+		this.checkUserLogin(request, page);
+		page.add("body", body.render());
 
 		out.print(page.render());
 		out.flush();

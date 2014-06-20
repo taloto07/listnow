@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -44,9 +45,14 @@ public class ListnowService {
 	}
 	
 	public boolean addUser(User user){
+		User userFromDB = this.getUserByEmail(user.getEmail());
+		
+		if (userFromDB != null) return false;
+		
 		entityManager.get().getTransaction().begin();
 		entityManager.get().persist(user);
 		entityManager.get().getTransaction().commit();
+		
 		return true;
 	}
 	
