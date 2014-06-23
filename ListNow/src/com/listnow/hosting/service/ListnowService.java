@@ -5,13 +5,17 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.listnow.hosting.dao.Category;
 import com.listnow.hosting.dao.City;
 import com.listnow.hosting.dao.Group;
+import com.listnow.hosting.dao.Image;
+import com.listnow.hosting.dao.Item;
+import com.listnow.hosting.dao.ItemImage;
 import com.listnow.hosting.dao.User;
+import com.listnow.hosting.dao.UserImage;
 
 public class ListnowService {
 	@Inject
@@ -20,6 +24,10 @@ public class ListnowService {
 	//-----------------------------------------City------------------------------------------------------------------------------------------------------------
 	public List<City> getAllCity(){
 		return entityManager.get().createNamedQuery("City.findAll", City.class).getResultList();
+	}
+	
+	public List<City> getAllCitySort(){
+		return entityManager.get().createNamedQuery("City.findAllSort", City.class).getResultList();
 	}
 	
 	public City getCityByZipcode(int zipcode){
@@ -66,7 +74,122 @@ public class ListnowService {
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	//-----------------------------------------group-----------------------------------------------------------------------------------------------------------
+	//-----------------------------------------Item------------------------------------------------------------------------------------------------------------
+	public List<Item> getAllItem() {
+		return entityManager.get().createNamedQuery("Item.findAll", Item.class)
+				.getResultList();
+	}
+
+	public Item getItemById(int id) {
+		try {
+			return entityManager.get()
+					.createNamedQuery("Item.findById", Item.class)
+					.setParameter("id", id).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public boolean addItem(Item item) {
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(item);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	
+	public boolean removeItem(Item item){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().remove(item);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	
+	public List<Item> searchItemByTitle(String title){
+		return entityManager.get().createNamedQuery("Item.searchItemByTitle", Item.class).setParameter("title", "%"+title+"%").getResultList();
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//-----------------------------------------Image-----------------------------------------------------------------------------------------------------------
+	public List<Image> getAllImage(){
+		return entityManager.get().createNamedQuery("Image.findAll", Image.class).getResultList();
+	}
+	
+	public Image getImageById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Image.findById", Image.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	public boolean addImage(Image image){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(image);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	
+	public boolean removeImage(Image image){
+		Image dbImage = this.getImageById(image.getId());
+		
+		if (dbImage == null) return false;
+		
+		entityManager.get().getTransaction().begin();
+		entityManager.get().remove(image);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//-----------------------------------------UserImage-------------------------------------------------------------------------------------------------------
+	public List<UserImage> getAllUserImage(){
+		return entityManager.get().createNamedQuery("UserImage.findAll", UserImage.class).getResultList();
+	}
+	
+	public UserImage getUserImageById(int id){
+		try{
+			return entityManager.get().createNamedQuery("UserImage.findById", UserImage.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	public boolean addUserImage(UserImage userImage){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(userImage);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	// -----------------------------------------UserImage-------------------------------------------------------------------------------------------------------
+	public List<ItemImage> getAllItemImage() {
+		return entityManager.get()
+				.createNamedQuery("ItemImage.findAll", ItemImage.class)
+				.getResultList();
+	}
+
+	public ItemImage getItemImageById(int id) {
+		try {
+			return entityManager.get()
+					.createNamedQuery("ItemImage.findById", ItemImage.class)
+					.setParameter("id", id).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public boolean addItemImage(ItemImage ItemImage) {
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(ItemImage);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//-----------------------------------------Group-----------------------------------------------------------------------------------------------------------
 	public List<Group> getAllGroup(){
 		return entityManager.get().createNamedQuery("Group.findAll", Group.class).getResultList();
 	}
@@ -100,4 +223,22 @@ public class ListnowService {
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------
 
+	//-----------------------------------------Category--------------------------------------------------------------------------------------------------------
+	public List<Category> getAllCategory(){
+		return entityManager.get().createNamedQuery("Category.findAll", Category.class).getResultList();
+	}
+	
+	public List<Category> getAllCategorySort(){
+		return entityManager.get().createNamedQuery("Category.findAllSort", Category.class).getResultList();
+	}
+	
+	public Category getCategoryById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Category.findById", Category.class).setParameter("id",id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 }

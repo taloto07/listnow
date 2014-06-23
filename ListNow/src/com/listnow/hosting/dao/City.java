@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name="cities")
 @NamedQueries({
 	@NamedQuery(name="City.findAll", query="SELECT c FROM City c"),
+	@NamedQuery(name="City.findAllSort", query="SELECT c FROM City c ORDER BY c.name"),
 	@NamedQuery(name="City.findByZipcode", query="SELECT c FROM City c WHERE c.zipcode = :zipcode")
 })
 public class City implements Serializable {

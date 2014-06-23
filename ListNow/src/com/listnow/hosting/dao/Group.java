@@ -15,6 +15,7 @@ import java.util.List;
 	@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g"),
 	@NamedQuery(name="Group.findByName", query="SELeCT g FROM Group g WHERE g.name = :name")
 })
+
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
 

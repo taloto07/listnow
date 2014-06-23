@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="user_image")
-@NamedQuery(name="UserImage.findAll", query="SELECT u FROM UserImage u")
+@NamedQueries({
+	@NamedQuery(name="UserImage.findAll", query="SELECT u FROM UserImage u"),
+	@NamedQuery(name="UserImage.findById", query="SELECT u FROM UserImage u WHERE u.id = :id")
+})
 public class UserImage implements Serializable {
 	private static final long serialVersionUID = 1L;
 

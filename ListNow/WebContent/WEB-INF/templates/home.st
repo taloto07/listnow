@@ -1,4 +1,4 @@
-home(contextPath)::="
+home(contextPath, cities)::="
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +21,22 @@ home(contextPath)::="
 			<div class='container'>
 				<div class='col-sm-10 col-sm-offset-1 index-search-wrapper'>
 					<center>
-						<h1>Deal locally with Listnow.</h1>
+						<h1>Deal locally with Listnow</h1>
 					</center>
-					<form role='form' action='$contextPath$search' method='post'>
-					  <input type='text' class='form-control input' id='index-search-bar' placeholder='Search'>
+					<form role='form' action='$contextPath$search' method='post' class='form-horizontal'>
+						<div class='form-group'>
+							<div class='col-sm-8'>
+					  			<input type='text' class='form-control' placeholder='Search' name='searchKey'>
+					  		</div>
+					  		<div class='col-sm-4 '>
+							  	<select class='form-control' name='city'>
+							  		<option value=''>City</option>
+							  		$cities:{n|
+							  			<option value='$n.zipcode$'>$n.name$</option>
+							  		}$
+						  		</select>
+						  	</div>
+					  	</div>
 					  <div class='btn-group col-sm-4 col-sm-offset-4'>
 						  <button type='submit' class='btn btn-primary'>Searching</button>
 						  <button type='submit' class='btn btn-danger'>Surprise Me</button>

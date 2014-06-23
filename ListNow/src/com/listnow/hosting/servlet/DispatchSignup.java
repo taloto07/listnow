@@ -72,7 +72,7 @@ public class DispatchSignup extends BaseServlet {
 		// validate form
 		UserForm validation = checkValidateUserInput(request);
 		
-		if (validation.isInValid()){
+		if (validation.isInValid()){	// form field is invlaid
 			body = templates.getInstanceOf("signup");
 			body.add("validateForm", validation.getErrorMessage());
 			body.add("email", validation.email);
@@ -81,13 +81,15 @@ public class DispatchSignup extends BaseServlet {
 			body.add("contextPath", contextPath);
 		}else{	// valid form add user to database
 			boolean flag = addUserToDatabase(validation);
-			if (flag == true){
+			if (flag == true){	// successfully added user to database
 				body = templates.getInstanceOf("signupsuccess");
-				body.add("firstName", validation.firstName);
-				body.add("lastName", validation.lastName);
-			}else{
+				body.add("firstName", this.changeFirstLetterToUpercase(validation.firstName));
+				body.add("lastName", this.changeFirstLetterToUpercase(validation.lastName));
+			}else{	// user already existed in database
 				body = templates.getInstanceOf("signup");
 				body.add("validateForm", "Email already existed! Please use different email");
+				body.add("firstName", validation.firstName);
+				body.add("lastName", validation.lastName);
 				body.add("contextPath", contextPath);
 			}
 		}

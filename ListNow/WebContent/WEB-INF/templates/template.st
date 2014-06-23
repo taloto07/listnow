@@ -25,9 +25,11 @@ template(contextPath, body, title, user)::="
         	</div>
 	        <div class='navbar-collapse collapse'>
 	        	<ul class='nav navbar-nav'>
-	            	<li><a href='#about'><span class='glyphicon glyphicon glyphicon-th-list'></span> Post</a></li>
+	            	<li><a href='$contextPath$post'><span class='glyphicon glyphicon glyphicon-th-list'></span> Post</a></li>
 	            	<li>
-	            		<form method='post' action='$contextPath$search'><input type='text' class='form-control' id='search-main' placeholder='Search'></form>
+	            		<form method='post' action='$contextPath$search'>
+	            			<input type='text' class='form-control' id='search-main' placeholder='Search' name='searchKey'>
+	            		</form>
 	            	</li>
 	          	</ul>
 				
@@ -51,7 +53,7 @@ template(contextPath, body, title, user)::="
 	</div>
 
 	$body$
-
+	
 	<div id='footer'>
 		Code Day 24-HRs coding challenge.
 	</div>

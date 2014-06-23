@@ -2,6 +2,7 @@ package com.listnow.hosting.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
+
+import com.listnow.hosting.dao.City;
 
 public class DispatchServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,9 +45,12 @@ public class DispatchServlet extends BaseServlet {
 		String contextPath = getContextPath();
 
 		STGroup templates = this.getSTGroup();
-
 		ST page = templates.getInstanceOf("home");
+		
+		List<City> cities = service.getAllCitySort();
+		
 		page.add("contextPath", contextPath);
+		page.add("cities", cities);
 
 		out.print(page.render());
 		out.flush();

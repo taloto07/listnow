@@ -11,7 +11,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name="images")
-@NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
+@NamedQueries({
+	@NamedQuery(name="Image.findAll", query="SELECT i FROM Image i"),
+	@NamedQuery(name="Image.findById", query="SELECT i FROM Image i WHERE i.id = :id")
+})
 public class Image implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,8 +25,20 @@ public class Image implements Serializable {
 	private String name;
 
 	private String path;
+	
+	private String extension;
 
 	private int size;
+	
+	
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="upload_date")

@@ -6,6 +6,7 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.ServletModule;
 import com.listnow.hosting.servlet.DispatchLogin;
 import com.listnow.hosting.servlet.DispatchLogout;
+import com.listnow.hosting.servlet.DispatchPost;
 import com.listnow.hosting.servlet.DispatchSearch;
 import com.listnow.hosting.servlet.DispatchServlet;
 import com.listnow.hosting.servlet.DispatchSignup;
@@ -23,6 +24,7 @@ public class MainModule extends ServletModule{
 		bind(DispatchSignup.class).in(Singleton.class);
 		bind(DispatchLogin.class).in(Singleton.class);
 		bind(DispatchLogout.class).in(Singleton.class);
+		bind(DispatchPost.class).in(Singleton.class);
 		
 		serve("/").with(DispatchServlet.class);
 		serve("/secure").with(DispatchServlet.class);
@@ -31,5 +33,6 @@ public class MainModule extends ServletModule{
 		serve("/signup").with(DispatchSignup.class);
 		serve("/login").with(DispatchLogin.class);
 		serve("/logout").with(DispatchLogout.class);
+		serve("/post").with(DispatchPost.class);
 	}
 }

@@ -7,7 +7,7 @@ signup(contextPath, validateForm, email, firstName, lastName)::="
 			$endif$
 			
 			<form class='form-horizontal' role='form' method='post' action='$contextPath$signup'>
-				<h1><center>Signup</center></h1>
+				<h1><center>Sign Up</center></h1>
 				
 				<div class='form-group'>
 			    	<label for='inputEmail3' class='col-sm-2 control-label'>Email</label>

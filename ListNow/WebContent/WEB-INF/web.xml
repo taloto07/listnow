@@ -45,6 +45,7 @@
     <web-resource-collection>
       <web-resource-name>All Resources</web-resource-name>
       <url-pattern>/secure</url-pattern>
+      <url-pattern>/post</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>role_admin</role-name>

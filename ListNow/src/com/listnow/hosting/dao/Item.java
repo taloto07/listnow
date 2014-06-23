@@ -11,7 +11,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="items")
-@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
+@NamedQueries({
+	@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i"),
+	@NamedQuery(name="Item.findById", query="SELECT i FROM Item i WHERE i.id = :id"),
+	@NamedQuery(name="Item.searchItemByTitle", query="SELECT i FROM Item i WHERE i.title LIKE :title")
+})
+
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,15 +24,15 @@ public class Item implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private byte delete;
+	private int deleteItem;
 
 	private String description;
 
-	private byte hide;
+	private int hide;
 
 	private double price;
 
-	private byte sold;
+	private int sold;
 
 	private String title;
 
@@ -46,7 +51,6 @@ public class Item implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="user_id")
 	private User user;
 
 	public Item() {
@@ -60,12 +64,12 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public byte getDelete() {
-		return this.delete;
+	public int getDeleteItem() {
+		return this.deleteItem;
 	}
 
-	public void setDelete(byte delete) {
-		this.delete = delete;
+	public void setDeleteItem(int deleteItem) {
+		this.deleteItem = deleteItem;
 	}
 
 	public String getDescription() {
@@ -76,11 +80,11 @@ public class Item implements Serializable {
 		this.description = description;
 	}
 
-	public byte getHide() {
+	public int getHide() {
 		return this.hide;
 	}
 
-	public void setHide(byte hide) {
+	public void setHide(int hide) {
 		this.hide = hide;
 	}
 
@@ -92,11 +96,11 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 
-	public byte getSold() {
+	public int getSold() {
 		return this.sold;
 	}
 
-	public void setSold(byte sold) {
+	public void setSold(int sold) {
 		this.sold = sold;
 	}
 

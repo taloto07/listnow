@@ -58,4 +58,8 @@ public class BaseServlet extends HttpServlet {
 			page.add("user", u.getFirstName() + " " + u.getLastName());
 		}
 	}
+	
+	protected String changeFirstLetterToUpercase(String string){
+		return string.replace(string.charAt(0), String.valueOf(string.charAt(0)).toString().toUpperCase().charAt(0));
+	}
 }

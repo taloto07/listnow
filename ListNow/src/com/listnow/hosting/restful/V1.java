@@ -1,5 +1,6 @@
 package com.listnow.hosting.restful;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,16 +35,31 @@ public class V1 {
 		return "API Version 1.0";
 	}
 	
+	@Path("/test")
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public String test(){
+		return "This is test string";
+	}
+	
 	@Path("/getallcity")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllCity(){
 		List<City> cities = service.getAllCity();
+		List<City> actualCities = new ArrayList<City>(); // too much object causes stackoverflow
+		City city;
+		for (City c: cities){
+			city = new City();
+			city.setZipcode(c.getZipcode());
+			city.setName(c.getName());
+			actualCities.add(city);
+		}
 		Gson gson = new Gson();
 		
-		Map<String, List<City>> allCity = new HashMap<String, List<City>>(); 
+		Map<String, List> allCity = new HashMap<String, List>(); 
 		
-		allCity.put("cities", cities);
+		allCity.put("cities", actualCities);
 		
 		return Response.status(200).entity(gson.toJson(allCity)).build();
 	}

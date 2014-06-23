@@ -3,7 +3,6 @@ package com.listnow.hosting.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,8 +55,10 @@ public class DispatchLogout extends BaseServlet {
 			request.logout();
 				
 			User user = service.getUserByEmail(email);
+			String firstName = this.changeFirstLetterToUpercase(user.getFirstName());
+			String lastName = this.changeFirstLetterToUpercase(user.getLastName());
 			
-			body.add("message", "See you soon " + user.getFirstName() + " " + user.getLastName());
+			body.add("message", "See you soon " + firstName + " " + lastName);
 			
 			page.add("contextPath", contextPath);
 			page.add("title", "Search");
