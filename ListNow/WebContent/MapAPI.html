@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Map API</title>
+	<style type='text/css'>
+		#map-canvas { height: 400px; width: 400px;}
+	</style>
+	
+	<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=true'></script>
+	
+	<script type="text/javascript">
+		var loc, lat, lon, latlng;
+		
+		function initialize() {
+      		var latlng1 = new google.maps.LatLng(-34.397, 150.644);
+      		
+        	var mapOptions = {
+          		center: latlng,
+          		zoom: 12
+        	};
+        	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+            
+        	var mapMarker = new google.maps.Marker({
+        		position: latlng,
+        		title: 'You are here!'
+        	});
+        	mapMarker.setMap(map);	
+      	}
+      
+		function getLocation(){
+			loc = document.getElementById('currentLocation');	
+
+			if (navigator.geolocation){
+      			navigator.geolocation.getCurrentPosition(showPosition, showError);
+	      	} else{
+    	  		currentLocation.innerHTML = "Geolocation is not supported by this browser.";
+      		}
+      	}
+
+      	function showPosition(position){
+    		lat = position.coords.latitude;
+      		lon = position.coords.longitude;
+      		latlng = new google.maps.LatLng(lat, lon);
+      		loc.innerHTML = 'here: ' + lat + " " + lon;
+      		initialize();
+      	}
+      
+		function showError(error) {
+    		switch(error.code) {
+        		case error.PERMISSION_DENIED:
+            		loc.innerHTML = "User denied the request for Geolocation."
+            		break;
+	        	case error.POSITION_UNAVAILABLE:
+ 		           	loc.innerHTML = "Location information is unavailable."
+      		      	break;
+        		case error.TIMEOUT:
+            		loc.innerHTML = "The request to get user location timed out."
+	            	break;
+ 		       	case error.UNKNOWN_ERROR:
+     		       	loc.innerHTML = "An unknown error occurred."
+         		   	break;
+    		}
+		}
+      
+      
+    </script>
+</head>
+<body onload='getLocation()'>
+	<button onclick='getLocation()'>Show Map</button>
+	<div id='currentLocation'>Current location.</div>
+	<div id='map-canvas'></div>
+</body>
+</html>

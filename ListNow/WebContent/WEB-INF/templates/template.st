@@ -28,7 +28,12 @@ template(contextPath, body, title, user)::="
 	            	<li><a href='$contextPath$post'><span class='glyphicon glyphicon glyphicon-th-list'></span> Post</a></li>
 	            	<li>
 	            		<form method='post' action='$contextPath$search'>
-	            			<input type='text' class='form-control' id='search-main' placeholder='Search' name='searchKey'>
+	            			<div class='input-group'>
+	            				<input type='text' class='form-control' id='search-main' placeholder='Search' name='searchKey'>
+	            				<span class='input-group-btn'>
+	            					<button class='btn btn-default' type='submit'>Search</button>
+	            				</span>
+	            			</div>
 	            		</form>
 	            	</li>
 	          	</ul>

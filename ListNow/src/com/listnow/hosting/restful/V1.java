@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.google.inject.Singleton;
 import com.listnow.hosting.dao.City;
+import com.listnow.hosting.dao.User;
 import com.listnow.hosting.guice.InjectorGuice;
 import com.listnow.hosting.service.ListnowService;
 
@@ -47,7 +48,9 @@ public class V1 {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllCity(){
 		List<City> cities = service.getAllCity();
-		List<City> actualCities = new ArrayList<City>(); // too much object causes stackoverflow
+		// too much object causes stackoverflow
+		// need to seperate to get only city only
+		List<City> actualCities = new ArrayList<City>(); 
 		City city;
 		for (City c: cities){
 			city = new City();
@@ -62,6 +65,30 @@ public class V1 {
 		allCity.put("cities", actualCities);
 		
 		return Response.status(200).entity(gson.toJson(allCity)).build();
+	}
+	
+	@Path("getalluser")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllUser(){
+		List<User> users = service.getAllUser();
+		List<User> actualUsers = new ArrayList<User>();
+		User user;
+		for (User u: users){
+			user = new User();
+			user.setId(u.getId());
+			user.setFirstName(u.getFirstName());
+			user.setLastName(u.getLastName());
+			user.setEmail(u.getEmail());
+			actualUsers.add(user);
+		}
+		
+		Gson gson = new Gson();
+		
+		Map<String, List> allUser = new HashMap<String, List>();
+		allUser.put("users", actualUsers);
+		
+		return Response.status(200).entity(gson.toJson(allUser)).build();
 	}
 	
 	@Path("/getcity/{cityname}")
